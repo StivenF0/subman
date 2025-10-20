@@ -1,0 +1,6 @@
+# Data folder on backend
+/backend/data/
+
+# Ignore log files
+*.log
+
