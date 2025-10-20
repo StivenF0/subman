@@ -1,5 +1,6 @@
-# Data folder on backend
-/backend/data/
+# Ignore content from backend/data/
+backend/data/*
+!backend/data/.gitkeep
 
 # Ignore log files
 *.log
