@@ -23,8 +23,8 @@ public class UserRepository {
 
     private final ObjectMapper objectMapper;
     private final File DATABASE_FILE = new File("data/users.json");
-    private Map<Long, User> database = new ConcurrentHashMap<>();
-    private AtomicLong idGenerator = new AtomicLong(0);
+    private final Map<Long, User> database = new ConcurrentHashMap<>();
+    private final AtomicLong idGenerator = new AtomicLong(0);
 
     @Autowired
     public UserRepository(ObjectMapper objectMapper) {
@@ -44,8 +44,6 @@ public class UserRepository {
         saveDatabase();
     }
 
-    // --- Métodos CRUD ---
-
     public List<User> findAll() {
         return new ArrayList<>(database.values());
     }
@@ -54,9 +52,6 @@ public class UserRepository {
         return Optional.ofNullable(database.get(id));
     }
 
-    /**
-     * Método de busca novo e essencial para usuários.
-     */
     public Optional<User> findByEmail(String email) {
         if (email == null) {
             return Optional.empty();
