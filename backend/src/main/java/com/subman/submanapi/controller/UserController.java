@@ -1,12 +1,11 @@
 package com.subman.submanapi.controller;
 
 import com.subman.submanapi.dto.LoginRequestDTO;
-import com.subman.submanapi.dto.LoginResponseDTO; // NOVO IMPORT
+import com.subman.submanapi.dto.LoginResponseDTO;
 import com.subman.submanapi.dto.UserResponseDTO;
 import com.subman.submanapi.model.User;
-import com.subman.submanapi.service.JwtTokenService; // NOVO IMPORT
+import com.subman.submanapi.service.JwtTokenService;
 import com.subman.submanapi.service.UserService;
-// import org.springframework.beans.factory.annotation.Autowired; // Não é mais necessário
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService service;
-    private final JwtTokenService jwtTokenService; // NOVO: Injetamos o serviço de token
+    private final JwtTokenService jwtTokenService;
 
     // ATUALIZADO: Injeção de dependência via construtor para ambos os serviços
     public UserController(UserService service, JwtTokenService jwtTokenService) {

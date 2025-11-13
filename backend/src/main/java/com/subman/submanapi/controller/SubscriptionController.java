@@ -1,10 +1,10 @@
 package com.subman.submanapi.controller;
 
 import com.subman.submanapi.model.Subscription;
-import com.subman.submanapi.model.User; // Importante
+import com.subman.submanapi.model.User;
 import com.subman.submanapi.service.SubscriptionService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication; // Importante
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor // Útil para criar a resposta no controller
+@AllArgsConstructor
 public class LoginResponseDTO {
 
     // Os dados do usuário (ID, Nome, Email)
