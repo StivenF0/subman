@@ -1,10 +1,11 @@
 package com.subman.submanapi.controller;
 
 import com.subman.submanapi.dto.LoginRequestDTO;
+import com.subman.submanapi.dto.LoginResponseDTO;
 import com.subman.submanapi.dto.UserResponseDTO;
 import com.subman.submanapi.model.User;
+import com.subman.submanapi.service.JwtTokenService;
 import com.subman.submanapi.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +14,17 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserService service;
+    private final UserService service;
+    private final JwtTokenService jwtTokenService;
+
+    // ATUALIZADO: Injeção de dependência via construtor para ambos os serviços
+    public UserController(UserService service, JwtTokenService jwtTokenService) {
+        this.service = service;
+        this.jwtTokenService = jwtTokenService;
+    }
 
     @GetMapping
     public List<UserResponseDTO> listAll() {
@@ -63,14 +70,27 @@ public class UserController {
         }
     }
 
+    // --- MÉTODO DE LOGIN (ATUALIZADO) ---
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest) {
         try {
-            UserResponseDTO dto = service.authenticateUser(
+            UserResponseDTO userDTO = service.authenticateUser(
                     loginRequest.getEmail(),
                     loginRequest.getSenha()
             );
-            return ResponseEntity.ok(dto);
+
+            User user = new User();
+            user.setId(userDTO.getId());
+            user.setEmail(userDTO.getEmail());
+            user.setNome(userDTO.getNome());
+
+            String token = jwtTokenService.generateToken(user);
+
+            LoginResponseDTO response = new LoginResponseDTO(userDTO, token);
+
+            return ResponseEntity.ok(response);
+
         } catch (RuntimeException e) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)

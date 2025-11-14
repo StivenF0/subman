@@ -1,9 +1,10 @@
 package com.subman.submanapi.enums;
 
 public enum Category {
-    Streaming,
-    Jogos,
-    Celular,
-    Servico,
-    Saas
+    STREAMING, // Transmissão
+    GAMES,     // Jogos
+    MOBILE,    // Celular
+    SERVICE,   // Servico
+    SAAS,      // Software As A Service (programa como um servico)
+    OTHER      // Outro
 }
