@@ -1,9 +1,9 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { Navbar } from "@/components/dashboard/navbar"; // <--- Importe a Navbar
 import { Spinner } from "@/components/ui/spinner";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
@@ -14,9 +14,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     if (!isLoading && !user) {
       router.push("/auth");
     }
-  }, [user, isLoading, router]); // Dependências do efeito
+  }, [user, isLoading, router]);
 
-  // (Podes substituir isto por um componente "Spinner" do Shadcn)
   if (isLoading) {
     return (
       <section className="w-full h-screen flex items-center justify-center">
@@ -25,18 +24,17 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     );
   }
 
-  // 3. Se está logado (passou pela verificação do useEffect),
-  // mostra o conteúdo da página (o 'children')
   if (user) {
     return (
-      <main>
-        {/* Aqui podes adicionar uma Navbar/Sidebar do Dashboard */}
-        {children}
-      </main>
+      <div className="flex-col flex min-h-screen bg-slate-50/50">
+        {/* 1. Navbar fixa no topo */}
+        <Navbar />
+
+        {/* 2. Conteúdo da página com padding */}
+        <main className="flex-1 space-y-4 p-8 pt-6">{children}</main>
+      </div>
     );
   }
 
-  // 4. Se não está a carregar e não tem usuário, retorna null
-  // (o useEffect já está a tratar do redirecionamento)
   return null;
 }
