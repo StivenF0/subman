@@ -67,7 +67,7 @@ export function DueSoonWidget() {
         {queue.map((sub, index) => (
           <Card 
             key={sub.id} 
-            className={`min-w-[240px] border-l-4 shadow-sm ${getUrgencyColor(sub.vencimento)}`}
+            className={`min-w-60 border-l-4 shadow-sm ${getUrgencyColor(sub.vencimento)}`}
           >
             <CardContent className="p-4">
               <div className="flex justify-between items-start mb-2">
