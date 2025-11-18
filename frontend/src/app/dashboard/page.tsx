@@ -12,6 +12,7 @@ import { Trash2 } from "lucide-react";
 import { CreateSubscriptionModal } from "@/components/dashboard/create-subscription-modal";
 // Importe a nova Toolbar
 import { Toolbar } from "@/components/dashboard/toolbar";
+import { DueSoonWidget } from "@/components/dashboard/due-soon-widget";
 
 export default function DashboardPage() {
   // 1. Estados locais para controlar os filtros
@@ -47,6 +48,11 @@ export default function DashboardPage() {
           Gerencie e acompanhe suas assinaturas mensais.
         </p>
       </div>
+
+      {/* --- 1. WIDGET DA FILA (NOVO) --- */}
+      <section>
+        <DueSoonWidget />
+      </section>
 
       {/* 3. Implementação da Toolbar */}
       <Toolbar
