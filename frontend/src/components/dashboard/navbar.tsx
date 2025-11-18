@@ -7,7 +7,10 @@ export function Navbar() {
     <div className="border-b">
       <div className="flex h-16 items-center px-4 container mx-auto">
         {/* --- 1. LOGO --- */}
-        <Link href="/dashboard" className="flex items-center gap-2 font-bold text-xl mr-8">
+        <Link
+          href="/dashboard"
+          className="flex items-center gap-2 font-bold text-xl mr-8"
+        >
           <div className="bg-primary text-primary-foreground p-1 rounded">
             <CreditCard className="h-5 w-5" />
           </div>
@@ -20,26 +23,14 @@ export function Navbar() {
             href="/dashboard"
             className="text-sm font-medium transition-colors hover:text-primary text-primary"
           >
-            Visão Geral
-          </Link>
-          <Link
-            href="#"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-          >
-            Relatórios
-          </Link>
-          <Link
-            href="#"
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-          >
-            Categorias
+            Dashboard
           </Link>
         </nav>
 
         {/* --- 3. ESPAÇADOR (Empurra o resto para a direita) --- */}
         <div className="ml-auto flex items-center space-x-4">
           {/* Aqui poderíamos por uma barra de busca global no futuro */}
-          
+
           {/* Menu do Usuário */}
           <UserNav />
         </div>
