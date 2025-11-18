@@ -13,6 +13,7 @@ import { CreateSubscriptionModal } from "@/components/dashboard/create-subscript
 // Importe a nova Toolbar
 import { Toolbar } from "@/components/dashboard/toolbar";
 import { DueSoonWidget } from "@/components/dashboard/due-soon-widget";
+import Link from "next/link";
 
 export default function DashboardPage() {
   // 1. Estados locais para controlar os filtros
@@ -86,55 +87,54 @@ export default function DashboardPage() {
             </div>
           ) : (
             subscriptions?.map((sub) => (
-              <Card
-                key={sub.id}
-                className="relative group hover:shadow-md transition-shadow"
-              >
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-base font-semibold">
-                    {sub.nome}
-                  </CardTitle>
-                  <Badge
-                    variant={
-                      sub.categoria === "STREAMING" ? "default" : "secondary"
-                    }
-                  >
-                    {sub.categoria}
-                  </Badge>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-green-600">
-                    {formatCurrency(sub.valor)}
-                  </div>
-                  <div className="mt-2 space-y-1">
-                    <p className="text-xs text-muted-foreground flex justify-between">
-                      <span>Vencimento:</span>
-                      <span className="font-medium text-foreground">
-                        {new Date(sub.vencimento).toLocaleDateString("pt-BR")}
-                      </span>
-                    </p>
-                    <p className="text-xs text-muted-foreground flex justify-between">
-                      <span>Ciclo:</span>
-                      <span className="capitalize">
-                        {sub.cicloCobranca.toLowerCase()}
-                      </span>
-                    </p>
-                  </div>
-
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute top-14 right-6 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-red-600"
-                    onClick={() => {
-                      if (confirm("Tem certeza que deseja excluir?")) {
-                        deleteMutation.mutate(sub.id);
+              <Link key={sub.id} href={`/dashboard/subscription/${sub.id}`}>
+                <Card className="relative group hover:shadow-md transition-shadow">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-base font-semibold">
+                      {sub.nome}
+                    </CardTitle>
+                    <Badge
+                      variant={
+                        sub.categoria === "STREAMING" ? "default" : "secondary"
                       }
-                    }}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
+                    >
+                      {sub.categoria}
+                    </Badge>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-green-600">
+                      {formatCurrency(sub.valor)}
+                    </div>
+                    <div className="mt-2 space-y-1">
+                      <p className="text-xs text-muted-foreground flex justify-between">
+                        <span>Vencimento:</span>
+                        <span className="font-medium text-foreground">
+                          {new Date(sub.vencimento).toLocaleDateString("pt-BR")}
+                        </span>
+                      </p>
+                      <p className="text-xs text-muted-foreground flex justify-between">
+                        <span>Ciclo:</span>
+                        <span className="capitalize">
+                          {sub.cicloCobranca.toLowerCase()}
+                        </span>
+                      </p>
+                    </div>
+
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute top-14 right-6 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-red-600"
+                      onClick={() => {
+                        if (confirm("Tem certeza que deseja excluir?")) {
+                          deleteMutation.mutate(sub.id);
+                        }
+                      }}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
             ))
           )}
         </div>
