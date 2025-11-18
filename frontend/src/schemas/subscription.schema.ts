@@ -14,11 +14,11 @@ export const SubscriptionSchema = z.object({
     return val;
   }, z.number({ error: "O valor deve ser um número válido." }).positive("O valor deve ser maior que zero.")),
 
-  categoria: z.nativeEnum(Category, {
+  categoria: z.enum(Category, {
     error: "Selecione uma categoria válida.",
   }),
 
-  cicloCobranca: z.nativeEnum(BillingCycle, {
+  cicloCobranca: z.enum(BillingCycle, {
     error: "Selecione um ciclo de cobrança válido.",
   }),
 
