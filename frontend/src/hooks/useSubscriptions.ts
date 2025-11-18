@@ -82,6 +82,36 @@ export function useDueSoonSubscriptions() {
       return response.data;
     },
     // Atualiza a cada 1 minuto para garantir que a contagem de dias esteja fresca
-    refetchInterval: 60000, 
+    refetchInterval: 60000,
+  });
+}
+
+// --- HOOK PARA BUSCAR UMA ÚNICA ASSINATURA (GET /{id}) ---
+export function useSubscriptionById(id: number) {
+  return useQuery({
+    queryKey: ["subscription", id],
+    queryFn: async () => {
+      const response = await api.get<Subscription>(`/subscriptions/${id}`);
+      return response.data;
+    },
+    enabled: !!id,
+  });
+}
+
+// --- HOOK PARA ATUALIZAR (PUT) ---
+export function useUpdateSubscription() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Subscription }) => {
+      const response = await api.put(`/subscriptions/${id}`, data);
+      return response.data;
+    },
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["subscriptions"] });
+      queryClient.invalidateQueries({
+        queryKey: ["subscription", variables.id],
+      });
+    },
   });
 }
