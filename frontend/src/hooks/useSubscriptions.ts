@@ -72,3 +72,16 @@ export function useCreateSubscription() {
     },
   });
 }
+
+// --- HOOK PARA A FILA (QUEUE) ---
+export function useDueSoonSubscriptions() {
+  return useQuery({
+    queryKey: ["subscriptions-due-soon"],
+    queryFn: async () => {
+      const response = await api.get<Subscription[]>("/subscriptions/due-soon");
+      return response.data;
+    },
+    // Atualiza a cada 1 minuto para garantir que a contagem de dias esteja fresca
+    refetchInterval: 60000, 
+  });
+}
