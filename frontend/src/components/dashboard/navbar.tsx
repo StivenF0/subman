@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { UserNav } from "./user-nav";
-import { CreditCard } from "lucide-react"; // Ícone para o logo
+import Image from "next/image";
 
 export function Navbar() {
   return (
@@ -12,25 +12,21 @@ export function Navbar() {
           className="flex items-center gap-2 font-bold text-xl mr-8"
         >
           <div className="bg-primary text-primary-foreground p-1 rounded">
-            <CreditCard className="h-5 w-5" />
+            <Image
+              src="/subman_logo.png"
+              alt="subman_logo"
+              width={30}
+              height={30}
+            />
           </div>
-          SubMan
+          <div>
+            <span className="text-[#1E3A6A]">Sub</span>
+            <span className="text-[#1CAFA7]">Man</span>
+          </div>
         </Link>
 
-        {/* --- 2. LINKS DE NAVEGAÇÃO (Centro/Esquerda) --- */}
-        <nav className="flex items-center space-x-4 lg:space-x-6 mx-6">
-          <Link
-            href="/dashboard"
-            className="text-sm font-medium transition-colors hover:text-primary text-primary"
-          >
-            Dashboard
-          </Link>
-        </nav>
-
-        {/* --- 3. ESPAÇADOR (Empurra o resto para a direita) --- */}
+        {/* --- 2. ESPAÇADOR --- */}
         <div className="ml-auto flex items-center space-x-4">
-          {/* Aqui poderíamos por uma barra de busca global no futuro */}
-
           {/* Menu do Usuário */}
           <UserNav />
         </div>
