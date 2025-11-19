@@ -93,6 +93,7 @@ public class SubscriptionService {
         existing.setCategoria(updatedDetails.getCategoria());
         existing.setCicloCobranca(updatedDetails.getCicloCobranca());
         existing.setVencimento(updatedDetails.getVencimento());
+        existing.setHistoricoPagamentos(updatedDetails.getHistoricoPagamentos());
 
         Subscription saved = subscriptionRepository.save(existing);
         return Optional.of(saved);
