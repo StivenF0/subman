@@ -3,6 +3,7 @@ package com.subman.submanapi.service;
 import com.subman.submanapi.model.Subscription;
 import com.subman.submanapi.repository.SubscriptionRepository;
 import com.subman.submanapi.repository.UserRepository;
+import com.subman.submanapi.util.SortingAlgorithms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -143,19 +144,18 @@ public class SubscriptionService {
     }
 
     /**
-     * 📜 REQUISITO ACADÊMICO: Algoritmo de Ordenação
+     * 📜 REQUISITO ACADÊMICO: Algoritmo de Ordenação (Merge Sort)
      * Retorna as assinaturas do usuário, ordenadas por um critério.
+     * Implementa o algoritmo Merge Sort manualmente (O(n log n)).
      * @param userId O ID do usuário logado.
      * @param sortBy O critério ("price", "duedate", "name").
      * @return Uma lista ordenada.
      */
     public List<Subscription> getSortedSubscriptions(Long userId, String sortBy) {
-        List<Subscription> userSubscriptions = findAllByUserId(userId);
+        List<Subscription> userSubscriptions = new ArrayList<>(findAllByUserId(userId));
 
-        // 2. REQUISITO: Ordenação (Collections.sort)
-        // Criamos um Comparator com base no critério
+        // Define o comparador baseado no critério
         Comparator<Subscription> comparator;
-
         switch (sortBy.toLowerCase()) {
             case "price":
                 // Ordena por "valor", do menor para o maior
@@ -172,8 +172,9 @@ public class SubscriptionService {
                 break;
         }
 
-        // 3. Aplica a ordenação na lista (in-place)
-        userSubscriptions.sort(comparator);
+        // REQUISITO: Aplica o algoritmo de ordenação Merge Sort
+        // Delegando para a classe utilitária SortingAlgorithms
+        SortingAlgorithms.mergeSort(userSubscriptions, comparator);
 
         return userSubscriptions;
     }
